@@ -12,18 +12,35 @@ class _RowandcolumnState extends State<Rowandcolumn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.amber, title: Text("Column")),
-      body: Center(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Mansi", style: TextStyle(color: Colors.red)),
-            Text("Roll NO: 12402151", style: TextStyle(fontSize: 20)),
-            Text(
-              "University Name: DAV University",
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
-        ),
+      body: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text("Mansi", style: TextStyle(color: Colors.red))],
+          ),
+
+          Text("Roll NO: 12402151", style: TextStyle(fontSize: 20)),
+          Text(
+            "University Name: DAV University",
+            style: TextStyle(fontSize: 20),
+          ),
+          TextButton(
+            onPressed: () {
+              print("Click Me!");
+            },
+            child: Text("Click Me!"),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text("Elevated Button")),
+          OutlinedButton(onPressed: () {}, child: Text("OutLined Button")),
+
+        TextField(
+          decoration: InputDecoration(
+          
+          ),
+        )
+        ],
       ),
     );
   }
