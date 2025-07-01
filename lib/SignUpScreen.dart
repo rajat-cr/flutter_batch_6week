@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_batch_6week/RowClass.dart';
-import 'package:flutter_batch_6week/SignUpScreen.dart';
+import 'package:flutter_batch_6week/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class Signupscreen extends StatefulWidget {
+  const Signupscreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Signupscreen> createState() => _SignupscreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupscreenState extends State<Signupscreen> {
+  var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var email = "email@gmail.com";
+  var nameFocus = FocusNode();
   var emailFocus = FocusNode();
   var passFocus = FocusNode();
   @override
@@ -28,7 +30,17 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [Text("Login", style: TextStyle(fontSize: 25))],
             ),
-
+            TextField(
+              keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+              controller: nameController,
+              focusNode: nameFocus,
+              decoration: InputDecoration(
+                hintText: "Enter Your Name",
+                label: Text("Name"),
+                border: OutlineInputBorder(),
+              ),
+            ),
             TextField(
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -53,17 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(onTap: () {
-                  
-                }, child: Text("Forget Password ?")),
-              ],
-            ),
 
             ElevatedButton(
               onPressed: () {
+                if (nameController.text.toString().isEmpty) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Enter Name")));
+                }
                 if (emailController.text.toString().isEmpty) {
                   ScaffoldMessenger.of(
                     context,
@@ -72,33 +81,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(SnackBar(content: Text("Enter Password")));
+                } else if (passwordController.text.toString().length < 6) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Enter at least 6 digit for Password"),
+                    ),
+                  );
                 } else {
                   setState(() {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(SnackBar(content: Text("Enter Email Id")));
+                    ).showSnackBar(SnackBar(content: Text("SignUp SuccessFully")));
                     // Fluttertoast.showToast(msg: "Enter Your Password");
-
-                    email = emailController.text.toString();
-                    print(email);
                   });
                 }
               },
-              child: Text("Login"),
+              child: Text("Sign Up"),
             ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("You don't have an account?"),
+                Text("You already have an account?"),
                 SizedBox(width: 5),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Signupscreen()),
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LoginScreen(),
+                      ),
                     );
                   },
-                  child: Text("Sign Up", style: TextStyle(color: Colors.blue)),
+                  child: Text("Login", style: TextStyle(color: Colors.blue)),
                 ),
 
                 // TextButton(

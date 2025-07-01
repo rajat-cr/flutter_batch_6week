@@ -36,6 +36,7 @@ class _RowclassState extends State<Rowclass> {
             Text("Mansi", style: TextStyle(fontSize: 25)),
             SizedBox(width: 10),
             Text("Row Data", style: TextStyle(fontSize: 25)),
+            
           ],
         ),
       ),
