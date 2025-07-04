@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_batch_6week/Student.dart';
 
 class Customlistview extends StatefulWidget {
   const Customlistview({super.key});
@@ -8,8 +9,9 @@ class Customlistview extends StatefulWidget {
 }
 
 class _CustomlistviewState extends State<Customlistview> {
-  List<String> nameList = ["Mansi", "Rahul", "Kajal", "Shivani"];
+  List<Student> nameList = [];
   var nameController = TextEditingController();
+  var rolNoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class _CustomlistviewState extends State<Customlistview> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(nameList[index])],
+                children: [
+                  Text(nameList[index].name.toString()),
+                  Text(nameList[index].rollNo.toString()),
+                ],
               ),
             ),
           );
@@ -51,6 +56,17 @@ class _CustomlistviewState extends State<Customlistview> {
                         border: OutlineInputBorder(),
                       ),
                     ),
+
+                    SizedBox(height: 10),
+                    TextField(
+                      controller: rolNoController,
+                      decoration: InputDecoration(
+                        hint: Text("Enter RollNo"),
+                        label: Text("RollNo"),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+
                     SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
@@ -58,9 +74,18 @@ class _CustomlistviewState extends State<Customlistview> {
                           ScaffoldMessenger.of(
                             context,
                           ).showSnackBar(SnackBar(content: Text("Enter Name")));
+                        } else if (rolNoController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Enter Roll No")),
+                          );
                         } else {
                           setState(() {});
-                          nameList.add(nameController.text.toString());
+                          nameList.add(
+                            Student(
+                              nameController.text.toString(),
+                              rolNoController.text.toString(),
+                            ),
+                          );
                           Navigator.of(context).pop();
                         }
                       },
